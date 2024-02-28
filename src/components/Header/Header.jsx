@@ -50,65 +50,67 @@ function Header() {
     ]
 
     return (
-        <header className='my-2 mx-4 border-y border-black max-w-auto'>
-            <Container>
-                <nav className='flex items-center justify-center sm:justify-between'>
-                    <div className='mr-4'>
-                        <Link to="/">
-                            <Logo width="70px" />
-                        </Link>
-                    </div>
-                    <ul className="hidden sm:flex">
-                        {navItems.map(item =>
-                            item.active ?
-                                (<li key={item.name}><button
-                                    onClick={() => navigate(item.slug)}
-                                    className={currentPage === item.slug ? 'inline-block px-6 py-3 shadow-inner shadow-gray-400 duration-200 text-blue-900 border-2 border-gray-400 rounded' : 'inline-block px-6 py-2 my-1 duration-200 hover:text-blue-900 border-x border-black'}
-                                >{item.name}</button></li>) : null)}
-                    </ul>
-                    <ul className="hidden sm:inline-block">
-                        {authStatus && (
-                            <li>
-                                <LogoutBtn />
-                            </li>
-                        )}
-                    </ul>
-                    <button className="absolute text-3xl top-1 right-7 sm:hidden" onClick={toggleSideNav}>&#9776;</button>
-                </nav>
-            </Container>
-            {/* Side Navigation */}
-            {isSideNavOpen && (
-                <div className="fixed inset-0 bg-gray-800 sm:hidden">
-                    <button className="absolute text-3xl text-white top-1 right-7 sm:hidden" onClick={toggleSideNav}>&#9747;</button>
-
-                    <div className="flex mt-20 justify-center p-4">
-                        <ul>
+        <header>
+            <div className='my-2 mx-4 border-y border-black max-w-auto'>
+                <Container>
+                    <nav className='flex items-center justify-center sm:justify-between'>
+                        <div className='mr-4'>
+                            <Link to="/">
+                                <Logo width="70px" />
+                            </Link>
+                        </div>
+                        <ul className="hidden sm:flex">
                             {navItems.map(item =>
-                                item.active && (
-                                    <li key={item.name}>
-                                        <button
-                                            onClick={() => {
-                                                navigate(item.slug);
-                                                toggleSideNav();
-                                            }}
-                                            className="block px-4 py-2 text-white hover:bg-gray-600"
-                                        >
-                                            {item.name}
-                                        </button>
-                                    </li>
-                                )
-                            )}
-                            <ul>
-                                {authStatus && (
-                                    <li className=" text-white hover:bg-gray-600">
-                                        <LogoutBtn />
-                                    </li>
-                                )}
-                            </ul>
+                                item.active ?
+                                    (<li key={item.name}><button
+                                        onClick={() => navigate(item.slug)}
+                                        className={currentPage === item.slug ? 'inline-block px-6 py-3 shadow-inner shadow-gray-400 duration-200 text-blue-900 border-2 border-gray-400 rounded' : 'inline-block px-6 py-2 my-1 duration-200 hover:text-blue-900 border-x border-black'}
+                                    >{item.name}</button></li>) : null)}
                         </ul>
+                        <ul className="hidden sm:inline-block">
+                            {authStatus && (
+                                <li>
+                                    <LogoutBtn />
+                                </li>
+                            )}
+                        </ul>
+                        <button className="absolute text-3xl top-1 right-7 sm:hidden" onClick={toggleSideNav}>{isSideNavOpen ? '×' : '☰'}</button>
+                    </nav>
+                </Container>
+            </div>
+            <div className={`sm:hidden transition-transform ease-in-out duration-200 transform ${isSideNavOpen ? 'translate-y-0' : '-translate-y-full'}`}>
+                {/* Side Navigation */}
+                {isSideNavOpen && (
+                    <div className=" bg-slate-500">
+                        <div className="flex justify-center p-4">
+                            <ul>
+                                {navItems.map(item =>
+                                    item.active && (
+                                        <li key={item.name}>
+                                            <button
+                                                onClick={() => {
+                                                    navigate(item.slug);
+                                                    toggleSideNav();
+                                                }}
+                                                className="block px-4 py-2 text-white hover:bg-gray-600"
+                                            >
+                                                {item.name}
+                                            </button>
+                                        </li>
+                                    )
+                                )}
+                                <ul>
+                                    {authStatus && (
+                                        <li className=" text-white hover:bg-gray-600">
+                                            <LogoutBtn toggleSideNav={toggleSideNav} />
+                                        </li>
+                                    )}
+                                </ul>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            )}
+                )}
+            </div>
         </header>
     )
 

@@ -3,7 +3,7 @@ import authService from "../../appwrite/auth"
 import { logout } from "../../store/authSlice"
 import { removePostData } from "../../store/postSlice"
 
-function LogoutBtn() {
+function LogoutBtn({toggleSideNav}) {
 
     const dispatch = useDispatch()
     const logoutHandler = () => {
@@ -11,6 +11,7 @@ function LogoutBtn() {
         authService.logout().then(() => {
             dispatch(logout())
             dispatch(removePostData())
+            toggleSideNav()
         })
 
     }

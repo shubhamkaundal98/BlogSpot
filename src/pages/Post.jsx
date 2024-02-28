@@ -56,14 +56,14 @@ export default function Post() {
                         <div className="w-full mb-6 flex justify-evenly">
                             <h1 className="text-2xl text-center font-bold w-2/3">{post.title}</h1>
                             {isAuthor && (
-                                <div className="relative inline-block text-left">
+                                <div className="relative">
                                     <div>
                                         <button
                                             type="button"
-                                            className="inline-flex items-center p-2 text-gray-400 hover:text-gray-600"
+                                            className=" text-gray-400 hover:text-gray-600"
                                             onClick={handleToggleMenu}
                                         >
-                                            <span className="text-2xl text-black">...</span>
+                                            <span className="flex flex-row text-2xl text-black">&#10247;</span>
                                         </button>
                                     </div>
                                     {menuOpen && (

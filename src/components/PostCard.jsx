@@ -5,7 +5,7 @@ import parse from "html-react-parser"
 function PostCard({$id,title,featuredImage,content}) {
     return (
         <Link to={`/post/${$id}`}>
-            <div className='w-72 h-full sm:w-full sm:h-72 flex flex-col sm:flex-row gap-4 border border-gray-400 hover:w-11/12 hover:border-2 hover:ml-8 transition-all ease-in-out duration-300 shadow-2xl hover:shadow-gray-500'>
+            <div className='w-72 h-full sm:w-full sm:h-72 flex flex-col sm:flex-row gap-4 border border-gray-400 sm:hover:w-11/12 hover:border-2 sm:hover:ml-8 transition-all ease-in-out duration-300 shadow-2xl hover:shadow-gray-500'>
                 <div className="w-full sm:w-2/4">
                     <img src={appwriteService.getFilePreview(featuredImage)} alt={title}  className='w-full h-72 object-cover' />
                 </div>
