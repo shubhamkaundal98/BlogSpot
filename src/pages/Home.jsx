@@ -3,6 +3,7 @@ import appwriteService from "../appwrite/config"
 import { Container, PostCard } from "../components";
 import { useDispatch, useSelector } from "react-redux";
 import { addPostData } from "../store/postSlice";
+import { Link } from "react-router-dom";
 
 export default function Home() {
     const userLoginStatus = useSelector(state => state.auth.status)
@@ -16,7 +17,7 @@ export default function Home() {
                 }
             })
         }
-    }, [])
+    }, [userLoginStatus])
 
     if (!userLoginStatus) {
         return (
@@ -24,8 +25,8 @@ export default function Home() {
                 <Container>
                     <div className="flex flex-wrap">
                         <div className="p-2 w-full">
-                            <h1 className="text-2xl font-bold hover:text-blue-900">
-                                Login to read posts
+                            <h1 className="text-2xl font-bold">
+                                <Link to="/login" className="underline hover:text-blue-900"> Login </Link> to read posts
                             </h1>
                         </div>
                     </div>
