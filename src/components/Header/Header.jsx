@@ -6,6 +6,8 @@ import { Link, useNavigate, useLocation } from "react-router-dom"
 function Header() {
 
     const authStatus = useSelector(state => state.auth.status)
+    let userName = useSelector(state => state.auth.userData)
+    if(userName) userName = userName.name
     const navigate = useNavigate()
     const location = useLocation()
     const currentPage = location.pathname
@@ -47,6 +49,11 @@ function Header() {
             slug: "/add-post",
             active: authStatus
         },
+        {
+            name: userName,
+            slug: "/my-posts",
+            active: authStatus
+        },
     ]
 
     return (
@@ -61,7 +68,7 @@ function Header() {
                         </div>
                         <ul className="hidden sm:flex">
                             {navItems.map(item =>
-                                item.active ?
+                                item.active && item.name !== userName ?
                                     (<li key={item.name}><button
                                         onClick={() => navigate(item.slug)}
                                         className={currentPage === item.slug ? 'inline-block px-6 py-3 shadow-inner shadow-gray-400 duration-200 text-blue-900 border-2 border-gray-400 rounded' : 'inline-block px-6 py-2 my-1 duration-200 hover:text-blue-900 border-x border-black'}
@@ -70,11 +77,18 @@ function Header() {
                         <ul className="hidden sm:inline-block">
                             {authStatus && (
                                 <li>
+                                    {navItems.map(item => 
+                                    item.active && item.name === userName ? 
+                                        (<button key={item.name} 
+                                            onClick={() => navigate(item.slug)}
+                                            className="py-2 px-4 rounded-full shadow-inner shadow-gray-400 hover:text-blue-900"
+                                            >{item.name[0].toUpperCase()}</button>)
+                                        : null)}
                                     <LogoutBtn />
                                 </li>
                             )}
                         </ul>
-                        <button className="absolute text-3xl top-1 right-7 sm:hidden" onClick={toggleSideNav}>{isSideNavOpen ? '×' : '☰'}</button>
+                        <button className="absolute text-3xl top-2 right-7 sm:hidden" onClick={toggleSideNav}>{isSideNavOpen ? '×' : '☰'}</button>
                     </nav>
                 </Container>
             </div>
@@ -85,8 +99,8 @@ function Header() {
                         <div className="flex justify-center p-4">
                             <ul>
                                 {navItems.map(item =>
-                                    item.active && (
-                                        <li key={item.name}>
+                                    (item.active && item.name !== userName) && (
+                                        <li key={item.name} className="flex justify-center">
                                             <button
                                                 onClick={() => {
                                                     navigate(item.slug);
@@ -99,13 +113,11 @@ function Header() {
                                         </li>
                                     )
                                 )}
-                                <ul>
-                                    {authStatus && (
-                                        <li className=" text-white hover:bg-gray-600">
-                                            <LogoutBtn toggleSideNav={toggleSideNav} />
-                                        </li>
-                                    )}
-                                </ul>
+                                {authStatus && (
+                                    <li className=" text-white hover:bg-gray-600" onClick={() => toggleSideNav()}>
+                                        <LogoutBtn />
+                                    </li>
+                                )}
                             </ul>
                         </div>
                     </div>
