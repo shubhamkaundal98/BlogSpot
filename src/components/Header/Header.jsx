@@ -1,7 +1,9 @@
 import { useState } from "react"
 import { Container, Logo, LogoutBtn } from "../index"
 import { useSelector } from "react-redux"
+import { RxCross2 } from "react-icons/rx";
 import { Link, useNavigate, useLocation } from "react-router-dom"
+import { RxHamburgerMenu } from "react-icons/rx";
 
 function Header() {
 
@@ -82,13 +84,13 @@ function Header() {
                                         (<button key={item.name} 
                                             onClick={() => navigate(item.slug)}
                                             className="py-2 px-4 rounded-full shadow-inner shadow-gray-400 hover:text-blue-900"
-                                            >{item.name[0].toUpperCase()}</button>)
+                                            >{item.name[0].toUpperCase() + item.name.slice(1).toLowerCase()}</button>)
                                         : null)}
                                     <LogoutBtn />
                                 </li>
                             )}
                         </ul>
-                        <button className="absolute text-3xl top-2 right-7 sm:hidden" onClick={toggleSideNav}>{isSideNavOpen ? '×' : '☰'}</button>
+                        <button className="absolute text-3xl top-2.5 right-7 sm:hidden" onClick={toggleSideNav}>{isSideNavOpen ? <RxCross2 /> : <RxHamburgerMenu />}</button>
                     </nav>
                 </Container>
             </div>
@@ -96,7 +98,7 @@ function Header() {
                 {/* Side Navigation */}
                 {isSideNavOpen && (
                     <div className=" bg-slate-500">
-                        <div className="flex justify-center p-4">
+                        <div className="flex justify-center p-2">
                             <ul>
                                 {navItems.map(item =>
                                     (item.active && item.name !== userName) && (

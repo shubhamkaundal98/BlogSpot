@@ -1,0 +1,17 @@
+.card{
+  transform-style: preserve-3d;
+  transition: all 0.8s ease;
+}
+
+.front{
+  backface-visibility: hidden;
+}
+
+.back{
+  backface-visibility: hidden;
+  transform: rotateX(180deg);
+}
+
+.cardFlip{
+  transform: rotateX(180deg);
+}
