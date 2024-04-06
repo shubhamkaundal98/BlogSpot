@@ -154,7 +154,7 @@ export class Service {
                 1,                  // full opacity
                 0,                  // no rotation
                 'FFFFFF',           // background color
-                'png'               // output jpg format
+                'webp'               // output jpg format
             )
         } catch (error) {
             console.log("Appwrite service :: getFilePreview :: error", error);
