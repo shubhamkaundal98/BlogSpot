@@ -147,14 +147,14 @@ export class Service {
                 1800,               // width, will be resized using this value.
                 0,                  // height, ignored when 0
                 'center',           // crop center
-                '80',               // slight compression
+                '50',               // slight compression
                 0,                  // border width
                 'CDCA30',           // border color
                 15,                 // border radius
                 1,                  // full opacity
                 0,                  // no rotation
                 'FFFFFF',           // background color
-                'jpg'               // output jpg format
+                'png'               // output jpg format
             )
         } catch (error) {
             console.log("Appwrite service :: getFilePreview :: error", error);
